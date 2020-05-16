@@ -20,7 +20,7 @@ app.get("/", function(req, res){
      res.render("landing")
 });
 
-app.get("/campgrounds", function(req, res){
+app.get("/campgrounds.html", function(req, res){
     res.render("campgrounds", {campgrounds: campgrounds})
 });
 
