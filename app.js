@@ -2,11 +2,12 @@ var express     =    require("express"),
     app         =    express(),
     bodyParser  =    require("body-parser"),
     mongoose    =    require("mongoose"),
+    methodOverride = require("method-override"),
     seedDB      =    require("./seeds"),
     passport    =    require("passport"),
     LocalStrategy =  require("passport-local"),
     User         =   require("./models/user")
-
+   
 
 var commentsRoutes = require("./routes/comments"),
     campgroundRoutes = require("./routes/campground"),
@@ -17,7 +18,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 mongoose.connect("mongodb://127.0.0.1:27017/yelp_camp", {useNewUrlParser: true, useUnifiedTopology: true});
-
+app.use(methodOverride("_method"));
 app.use(require("express-session")({
     secret: "someonerandomworld",
     resave: false,

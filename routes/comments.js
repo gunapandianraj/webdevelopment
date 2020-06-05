@@ -28,6 +28,9 @@ router.post("/",isLoggedIn, function(req, res){
                 if(err){
                     console.log(err)
                 } else {
+                    data.author.id = req.user._id;
+                    data.author.username = req.user.username;
+                    data.save()
                     campData.comments.push(data._id);
                     campData.save();
                     res.redirect("/campgrounds/" + campData._id)
@@ -36,6 +39,15 @@ router.post("/",isLoggedIn, function(req, res){
         }
     });
 });
+
+
+router.get("/:comment_id/edit", function(req, res){
+    Comment.findById(req.params.comment_id, function(err, data) {
+        res.render("comments/edit", {campgroundid: req.params.id, comment: data})
+
+    })
+});
+
 
 function isLoggedIn(req, res, next) {
     if(req.isAuthenticated()){
